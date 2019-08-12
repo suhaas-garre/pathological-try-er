@@ -26,6 +26,7 @@ def preprocess(filePath):
 							'Nucleus.Perimeter..µm.':'Nucleus_Perimeter', 
 							'Nucleus.Roundness':'Nuclear_Roundness'})
 
+	# the coordinates of each cell converted to float64 to make processing easier
 	coor_norm = ['XMin', 'XMax', 'YMin', 'YMax']
 	df[coor_norm] = df[coor_norm].astype('float64')
 
@@ -52,9 +53,11 @@ def preprocess(filePath):
 	HN26 = df.loc[df['Patient'] == 'HN26']
 	HN28 = df.loc[df['Patient'] == 'HN28']
 
-	
+	# put all dataframes into list for easy iteration
 	df_list = [HN5, HN6, HN16, HN17, HN18, HN20, HN22, HN25, HN26, HN28]
 
+	# function to normalize all values from 0-1
+	# used to account for differences in measurement from sample to sample
 	def normalize(dataframe):
 		coor_norm = ['XMin', 'XMax', 'YMin', 'YMax']
 		dataframe[coor_norm] = dataframe[coor_norm].apply(lambda y: y - np.min(y))
@@ -64,10 +67,11 @@ def preprocess(filePath):
 		dataframe[fluor_norm] = dataframe[fluor_norm].apply(lambda y: y/np.max(y))
 		return dataframe
 
+	# apply normalization function to each sample in list
 	new_list = [normalize(i) for i in df_list]
 
-	#df_normalized = pd.concat(df_list)
-	
+	# distribute patients among training, validation, and test sets
+	# aim is to have ~2 million cells in training, and 700k each in val and test	
 	train_set = pd.concat([HN6, HN26, HN25, HN5, HN28])
 	val_set = pd.concat([HN16, HN17, HN22])
 	test_set = pd.concat([HN18, HN20])
