@@ -35,3 +35,15 @@ cont_var = ['Opal520',
 			'XMax',
 			'YMin',
 			'YMax']
+
+
+test_list = TabularList.from_df(test, cat_names=cat_var, cont_names=cont_var)
+
+# Training Data Bunch
+data = (TabularList.from_df(train, path='.', cat_names=cat_var, cont_names=cont_var,)
+						.split_none()
+						.label_from_df(cols=dep_var)
+						.add_test(test, label=0)
+						.databunch())
+
+
