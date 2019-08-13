@@ -8,10 +8,18 @@ from fastai.basic_data import DataBunch
 train = pd.read_csv('/Users/suhaas/Desktop/stott_lab/train.csv')
 test = pd.read_csv('/Users/suhaas/Desktop/stott_lab/test.csv')
 
-train['Classifier.Label'] = train['Classifier.Label'].astype('category')
-test['Classifier.Label'] = test['Classifier.Label'].astype('category')
+categorical = ['pEMT_TriplePositive',
+			'LAMC2_LAMB3',
+			'LAMC2_PDPN',
+			'LAMB3_PDPN', 
+			'Triple_p63',
+			'LAMC2_LAMB3_p63',
+			'LAMC2_PDPN_p63',
+			'LAMB3_PDPN_p63',
+			'Classifier.Label']
 
-print(train)
+train[categorical] = train[categorical].astype('category')
+test[categorical] = test[categorical].astype('category')
 
 #assign categorical variables
 cat_var = ['pEMT_TriplePositive',
@@ -40,7 +48,7 @@ cont_var = ['Opal520',
 			'YMin',
 			'YMax']
 
-'''
+
 # Training Data Bunch
 data = TabularDataBunch.from_df(df=train, 
 						path='.', 
@@ -51,4 +59,3 @@ data = TabularDataBunch.from_df(df=train,
 						valid_idx=list(range(1000000, 1272701)))	
 
 data.show_batch(rows=10)
-'''
