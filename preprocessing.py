@@ -30,6 +30,17 @@ def preprocess(filePath):
 	coor_norm = ['XMin', 'XMax', 'YMin', 'YMax']
 	df[coor_norm] = df[coor_norm].astype('float64')
 
+	categorical = ['pEMT_TriplePositive',
+			'LAMC2_LAMB3',
+			'LAMC2_PDPN',
+			'LAMB3_PDPN', 
+			'Triple_p63',
+			'LAMC2_LAMB3_p63',
+			'LAMC2_PDPN_p63',
+			'LAMB3_PDPN_p63']
+
+	df[categorical] = df[categorical].astype('category')
+
 	# columns to drop out of dataframe
 	toDrop = ['Unnamed: 0', 'Object.Id', 'PathState', 'Grade', 'pEMT_scRNASeq', 'pEMT_lowhigh']
 

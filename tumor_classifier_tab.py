@@ -5,9 +5,13 @@ from fastai.tabular import *
 from fastai.basic_data import DataBunch
 
 #import pre-processed training, testing, and validation datasets
+train = pd.read_csv('/Users/suhaas/Desktop/stott_lab/train.csv')
+test = pd.read_csv('/Users/suhaas/Desktop/stott_lab/test.csv')
 
-#assign dependent variable 
-dep_var = 'Classifier.Label'
+train['Classifier.Label'] = train['Classifier.Label'].astype('category')
+test['Classifier.Label'] = test['Classifier.Label'].astype('category')
+
+print(train)
 
 #assign categorical variables
 cat_var = ['pEMT_TriplePositive',
@@ -38,10 +42,13 @@ cont_var = ['Opal520',
 
 '''
 # Training Data Bunch
-data = TabularDataBunch.from_df(df=train, path='.', cat_names=cat_var, cont_names=cont_var, 
-							dep_var=dep_var, test_df=test, valid_idx=list(range(2049554, 2833106)))	
+data = TabularDataBunch.from_df(df=train, 
+						path='.', 
+						cat_names=cat_var,
+						cont_names=cont_var, 
+						dep_var="Classifier.Label", 
+						test_df=test, 
+						valid_idx=list(range(1000000, 1272701)))	
 
 data.show_batch(rows=10)
 '''
-
-
