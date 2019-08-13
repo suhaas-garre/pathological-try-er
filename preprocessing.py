@@ -72,12 +72,13 @@ def preprocess(filePath):
 
 	# distribute patients among training, validation, and test sets
 	# aim is to have ~2 million cells in training, and 700k each in val and test	
-	train_set = pd.concat([HN6, HN26, HN25, HN5, HN28])
-	val_set = pd.concat([HN16, HN17, HN22])
+	train_set = pd.concat([HN6, HN26])
+	#HN25, HN5, HN28, HN16, HN17, HN22])
 	test_set = pd.concat([HN18, HN20])
 	
-	return train_set, val_set, test_set
+	train_set.to_csv("train.csv")
+	test_set.to_csv("test.csv")
 
 
-training, validation, testing = preprocess("/Users/suhaas/Desktop/stott_lab/joao/HN2_Suhaas_wupdated25.csv")
+preprocess("/Users/suhaas/Desktop/stott_lab/joao/HN2_Suhaas_wupdated25.csv")
 

@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
 from fastai import *
-import preprocessing
+from fastai.tabular import *
+from fastai.basic_data import DataBunch
 
 #import pre-processed training, testing, and validation datasets
-# train, val, test = preprocessing.preprocess("/Users/suhaas/Desktop/stott_lab/joao/HN2_Suhaas_wupdated25.csv")
 
 #assign dependent variable 
 dep_var = 'Classifier.Label'
@@ -36,14 +36,12 @@ cont_var = ['Opal520',
 			'YMin',
 			'YMax']
 
-
-test_list = TabularList.from_df(test, cat_names=cat_var, cont_names=cont_var)
-
+'''
 # Training Data Bunch
-data = (TabularList.from_df(train, path='.', cat_names=cat_var, cont_names=cont_var,)
-						.split_none()
-						.label_from_df(cols=dep_var)
-						.add_test(test, label=0)
-						.databunch())
+data = TabularDataBunch.from_df(df=train, path='.', cat_names=cat_var, cont_names=cont_var, 
+							dep_var=dep_var, test_df=test, valid_idx=list(range(2049554, 2833106)))	
+
+data.show_batch(rows=10)
+'''
 
 
