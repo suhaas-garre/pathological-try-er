@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from fastai import *
 from fastai.tabular import *
 from fastai.basic_data import DataBunch
@@ -58,4 +59,12 @@ data = TabularDataBunch.from_df(df=train,
 						test_df=test, 
 						valid_idx=list(range(1000000, 1272701)))	
 
-data.show_batch(rows=10)
+
+learn = tabular_learner(data, layers=[200,100], metrics=accuracy)
+
+# learn.lr_find()
+# learn.recorder.plot()
+# plt.show()
+
+learn.fit_one_cycle(3, max_lr=3e-3)
+
