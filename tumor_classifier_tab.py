@@ -60,11 +60,13 @@ data = TabularDataBunch.from_df(df=train,
 						valid_idx=list(range(1000000, 1272701)))	
 
 
-learn = tabular_learner(data, layers=[200,100], metrics=accuracy)
+learn = tabular_learner(data, layers=[100,50], emb_drop=0.1, metrics=error_rate)
 
 # learn.lr_find()
 # learn.recorder.plot()
 # plt.show()
 
-learn.fit_one_cycle(3, max_lr=3e-3)
+learn.fit_one_cycle(1, max_lr=3e-2)
 
+predictions, *_ = learn.get_preds(DatasetType.Test)
+labels = np.argmax(predictions, 1)
