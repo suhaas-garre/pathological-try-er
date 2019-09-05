@@ -57,7 +57,7 @@ data = TabularDataBunch.from_df(df=train,
 						cont_names=cont_var, 
 						dep_var="Classifier.Label", 
 						test_df=test, 
-						valid_idx=list(range(1000000, 1272701)))	
+						valid_idx=list(range(750000, 1272701)))	
 
 
 learn = tabular_learner(data, layers=[100,50], emb_drop=0.1, metrics=error_rate)
@@ -68,5 +68,5 @@ learn = tabular_learner(data, layers=[100,50], emb_drop=0.1, metrics=error_rate)
 
 learn.fit_one_cycle(1, max_lr=3e-2)
 
-predictions, *_ = learn.get_preds(DatasetType.Test)
-labels = np.argmax(predictions, 1)
+# predictions, *_ = learn.get_preds(DatasetType.Test)
+# labels = np.argmax(predictions, 1)
