@@ -16,6 +16,12 @@ def dice_coef_loss(y_true, y_pred):
 	return -dice_coef(y_true, y_pred)
 
 
+def jaccard_coef(y_true, y_pred, smooth=1):
+	intersection = keras.sum(y_true * y_pred)
+	sum_ = keras.sum(y_true + y_pred)
+	return (intersection + smooth) / (sum_ - intersection + smooth)
+
+
 def unet(pretrained_weights = None, input_size = (512, 512, 7)):
 	inputs = Input(input_size)
 	conv1 = Conv2D(64, 64, activation='relu', padding='same', kernel_initializer='he_normal')(inputs)
