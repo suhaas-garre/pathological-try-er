@@ -25,6 +25,7 @@ def trainGenerator(batch_size, train_path,image_folder, mask_folder, aug_dict, i
                      flag_multi_class = False, num_class = 2, save_to_dir = None, target_size = (512,512), seed = 1):
 
 	img_datagen = ImageDataGenerator(**aug_dict)
+	# Should I fit to x_train here? 
 	mask_datagen = ImageDataGenerator(**aug_dict)
 
 	img_generator = img_datagen.flow_from_directory(
